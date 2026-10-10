@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LogicLab: Interactive Logic Gates Simulator</title>
+  <meta name="description" content="Learn, simulate, and master digital logic gates. Interactive simulator, truth table generator, and quizzes for Computer Engineering students." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- ======================= HEADER ======================= -->
+  <header class="app-header">
+    <button id="menuToggle" class="icon-btn menu-btn" aria-label="Open navigation menu" aria-expanded="false" aria-controls="sidebar">
+      <span class="hamburger" aria-hidden="true"></span>
+    </button>
+
+    <div class="brand">
+      <svg class="brand-logo" viewBox="0 0 48 48" width="40" height="40" aria-hidden="true">
+        <rect x="2" y="2" width="44" height="44" rx="10" fill="var(--blue)"/>
+        <path d="M12 14 h9 a8 8 0 0 1 0 16 h-9 z" fill="none" stroke="#fff" stroke-width="2.5"/>
+        <line x1="31" y1="22" x2="40" y2="22" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+        <circle cx="41" cy="22" r="2.4" fill="#fff"/>
+        <line x1="4" y1="18" x2="12" y2="18" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="4" y1="26" x2="12" y2="26" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+      <div class="brand-text">
+        <h1>LogicLab</h1>
+        <p class="tagline">Interactive Logic Gates Simulator &mdash; <em>Learn, simulate, and master digital logic gates.</em></p>
+      </div>
+    </div>
+
+    <div class="header-actions">
+      <button id="musicToggle" class="icon-btn" aria-pressed="false" data-tip="Background music (off by default)" aria-label="Toggle background music">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M9 18V5l12-2v13"/>
+          <circle cx="6" cy="18" r="3"/>
+          <circle cx="18" cy="16" r="3"/>
+        </svg>
+      </button>
+      <button id="soundToggle" class="icon-btn" aria-pressed="false" data-tip="Sound effects (disabled by default)" aria-label="Toggle sound effects">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M11 5 6 9H2v6h4l5 4V5z" fill="currentColor" stroke="none"/>
+          <g id="soundWaves" style="display:none"><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9.4 9.4 0 0 1 0 13"/></g>
+          <g id="soundOff"><line x1="16" y1="9" x2="22" y2="15"/><line x1="22" y1="9" x2="16" y2="15"/></g>
+        </svg>
+      </button>
+      <button id="themeToggle" class="icon-btn" aria-pressed="false" data-tip="Toggle light / dark mode" aria-label="Toggle dark mode">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <g id="iconMoon"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></g>
+          <g id="iconSun" style="display:none"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></g>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <div class="layout">
+    <!-- ======================= SIDEBAR ======================= -->
+    <nav class="sidebar" id="sidebar" aria-label="Main navigation">
+      <p class="nav-heading">Navigation</p>
+      <button class="nav-item active" data-target="section-learn"><span class="nav-num">1</span> Learn Logic Gates</button>
+      <button class="nav-item" data-target="section-simulator"><span class="nav-num">2</span> Logic Gate Simulator</button>
+      <button class="nav-item" data-target="section-generator"><span class="nav-num">3</span> Truth Table Generator</button>
+      <button class="nav-item" data-target="section-quiz"><span class="nav-num">4</span> Truth Table Quiz</button>
+      <button class="nav-item" data-target="section-progress"><span class="nav-num">5</span> Score &amp; Progress</button>
+      <button class="nav-item" data-target="section-kmap"><span class="nav-num">6</span> K-Map Solver</button>
+    </nav>
+    <div class="overlay" id="overlay" aria-hidden="true"></div>
+
+    <!-- ======================= MAIN CONTENT ======================= -->
+    <main class="content" id="main">
+
+      <!-- ========== TAB 1: LEARN LOGIC GATES ========== -->
+      <section id="section-learn" class="section active" aria-labelledby="learn-heading">
+        <div class="hero card">
+          <h2 id="learn-heading">LogicLab: Interactive Logic Gates Simulator</h2>
+          <p class="hero-subtitle">Learn, simulate, and master digital logic gates.</p>
+          <p class="hero-intro">
+            Welcome! This interactive tool helps Computer Engineering students understand the eight fundamental
+            logic gates, test binary inputs, generate truth tables automatically, and practice with quizzes.
+            Everything runs locally in your browser &mdash; no internet connection is required after the page loads.
+          </p>
+          <div class="hero-stats">
+            <span class="hero-chip">8 logic gates</span>
+            <span class="hero-chip">2&ndash;4 input support</span>
+            <span class="hero-chip">Auto truth tables</span>
+            <span class="hero-chip">Practice quizzes</span>
+          </div>
+          <div class="hero-nav">
+            <button class="btn btn-light" data-target="section-simulator">Open the Simulator</button>
+            <button class="btn btn-light" data-target="section-generator">Generate a Truth Table</button>
+            <button class="btn btn-light" data-target="section-quiz">Take a Quiz</button>
+          </div>
+        </div>
+
+        <h2 class="section-title">The Eight Logic Gates</h2>
+        <p class="section-intro">Each card shows the gate symbol, Boolean expression, explanation, required inputs,
+        a real-world application, its truth table, and a small interactive demo you can toggle.</p>
+
+        <div id="gateCards" class="gate-cards"></div>
+      </section>
+
+      <!-- ========== TAB 2: LOGIC GATE SIMULATOR ========== -->
+      <section id="section-simulator" class="section" aria-labelledby="sim-heading">
+        <h2 class="section-title" id="sim-heading">Logic Gate Simulator</h2>
+        <p class="section-intro">Choose a gate, set the number of inputs, and flip the binary switches.
+        The output, diagram, and indicator update instantly.</p>
+
+        <div class="card">
+          <h3 class="card-title">1 &middot; Choose a gate</h3>
+          <div id="simGateButtons" class="gate-picker" role="group" aria-label="Select a logic gate"></div>
+
+          <h3 class="card-title">2 &middot; Set the number of inputs</h3>
+          <div class="control-row">
+            <div class="seg" id="simInputCount" role="group" aria-label="Number of inputs">
+              <button class="seg-btn active" data-n="2">2 Inputs</button>
+              <button class="seg-btn" data-n="3">3 Inputs</button>
+              <button class="seg-btn" data-n="4">4 Inputs</button>
+            </div>
+            <span class="fixed-badge hidden" id="simFixedBadge">1 input (fixed)</span>
+          </div>
+          <p class="note hidden" id="simUnaryNote">NOT and Buffer are <strong>unary gates</strong> &mdash; they always use exactly 1 input.</p>
+        </div>
+
+        <div class="sim-grid">
+          <div class="card">
+            <h3 class="card-title">Inputs</h3>
+            <div id="simSwitches" class="switches"></div>
+            <button id="simReset" class="btn btn-secondary btn-block">Reset inputs to 0</button>
+            <p class="hint" data-tip="LOW = 0 = FALSE (off). HIGH = 1 = TRUE (on).">Tip: flip any switch and watch the output react immediately.</p>
+          </div>
+
+          <div class="card">
+            <h3 class="card-title">Output</h3>
+            <div id="simDiagram" class="diagram-box" aria-live="polite"></div>
+            <div class="readout">
+              <div class="readout-row">
+                <span class="readout-label">Selected gate</span>
+                <span class="readout-value" id="simGateName">AND Gate</span>
+              </div>
+              <div class="readout-row">
+                <span class="readout-label">Current inputs</span>
+                <span class="readout-value mono" id="simInputs">A=0&nbsp;&nbsp;B=0</span>
+              </div>
+              <div class="readout-row">
+                <span class="readout-label">Boolean expression</span>
+                <span class="readout-value" id="simExpr">Y = A · B</span>
+              </div>
+              <div class="readout-row output-row">
+                <span class="readout-label">Output (Y)</span>
+                <span class="output-badge low" id="simOutputBadge" role="status">
+                  <span class="output-value" id="simOutputValue">0</span>
+                  <span class="output-state" id="simOutputState">LOW</span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========== TAB 3: TRUTH TABLE GENERATOR ========== -->
+      <section id="section-generator" class="section" aria-labelledby="gen-heading">
+        <h2 class="section-title" id="gen-heading">Truth Table Generator</h2>
+        <p class="section-intro">Select a gate and an input count. Every one of the 2<sup>n</sup> binary
+        combinations is generated and calculated automatically.</p>
+
+        <div class="card controls-card">
+          <div class="control-group">
+            <label class="control-label" for="genGateSelect">Logic gate</label>
+            <select id="genGateSelect" class="select"></select>
+            <span class="fixed-badge hidden" id="genFixedBadge">1 input (fixed)</span>
+          </div>
+          <div class="control-group">
+            <span class="control-label" id="genCountLabel">Number of inputs</span>
+            <div class="seg" id="genInputCount" role="group" aria-labelledby="genCountLabel">
+              <button class="seg-btn active" data-n="2">2</button>
+              <button class="seg-btn" data-n="3">3</button>
+              <button class="seg-btn" data-n="4">4</button>
+            </div>
+            <p class="note hidden" id="genUnaryNote">NOT and Buffer always use exactly 1 input.</p>
+          </div>
+          <div class="control-group actions no-print">
+            <button id="genToggleTable" class="btn btn-secondary">Hide table</button>
+            <button id="genCSV" class="btn btn-secondary">Download CSV</button>
+            <button id="genPrint" class="btn btn-secondary">Print</button>
+            <button id="genToKmap" class="btn btn-secondary">Generate K-Map from Truth Table</button>
+            <button id="genReset" class="btn btn-ghost">Reset</button>
+          </div>
+        </div>
+
+        <p id="genStats" class="stats-line" aria-live="polite"></p>
+        <p class="hint">Rows with output 1 are highlighted in green. The blue-marked row matches the current simulator inputs.</p>
+
+        <div class="card table-card" id="ttCard">
+          <div class="table-wrap" id="ttTableWrap"></div>
+        </div>
+      </section>
+
+      <!-- ========== TAB 4: TRUTH TABLE QUIZ ========== -->
+      <section id="section-quiz" class="section" aria-labelledby="quiz-heading">
+        <h2 class="section-title" id="quiz-heading">Truth Table Quiz</h2>
+        <p class="section-intro">Two ways to practice: complete a truth table with missing outputs,
+        or play a randomized rapid-fire quiz.</p>
+
+        <div class="seg quiz-mode" id="quizModeSeg" role="group" aria-label="Quiz mode">
+          <button class="seg-btn active" data-mode="answer">Complete the Truth Table</button>
+          <button class="seg-btn" data-mode="practice">Randomized Practice Quiz</button>
+        </div>
+
+        <!-- ---- Mode A: answer mode ---- -->
+        <div id="quizAnswerPane">
+          <div class="card controls-card">
+            <div class="control-group">
+              <label class="control-label" for="ansGateSelect">Logic gate</label>
+              <select id="ansGateSelect" class="select"></select>
+              <span class="fixed-badge hidden" id="ansFixedBadge">1 input (fixed)</span>
+            </div>
+            <div class="control-group">
+              <span class="control-label" id="ansCountLabel">Number of inputs</span>
+              <div class="seg" id="ansInputCount" role="group" aria-labelledby="ansCountLabel">
+                <button class="seg-btn active" data-n="2">2</button>
+                <button class="seg-btn" data-n="3">3</button>
+                <button class="seg-btn" data-n="4">4</button>
+              </div>
+              <p class="note hidden" id="ansUnaryNote">NOT and Buffer always use exactly 1 input.</p>
+            </div>
+            <div class="control-group">
+              <label class="control-label" for="ansNumMissing">Missing answers (questions)</label>
+              <select id="ansNumMissing" class="select"></select>
+            </div>
+            <div class="control-group actions">
+              <button id="ansGenerateBtn" class="btn">Generate Exercise</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="table-wrap" id="ansTableWrap"></div>
+            <div class="quiz-actions no-print">
+              <button id="ansSubmit" class="btn">Submit Answers</button>
+              <button id="ansShowAnswers" class="btn btn-secondary">Show Answers</button>
+              <button id="ansTryAgain" class="btn btn-secondary">Try Again</button>
+            </div>
+            <div id="ansScore" class="score-box hidden" aria-live="polite"></div>
+            <p id="ansMessage" class="message" aria-live="polite"></p>
+          </div>
+        </div>
+
+        <!-- ---- Mode B: randomized practice quiz ---- -->
+        <div id="quizPracticePane" class="hidden">
+          <div class="card" id="pzContainer"></div>
+        </div>
+      </section>
+
+      <!-- ========== TAB 6: K-MAP SOLVER ========== -->
+      <section id="section-kmap" class="section" aria-labelledby="kmap-heading">
+        <h2 class="section-title" id="kmap-heading">K-Map Solver</h2>
+        <p class="section-intro">Simplify Boolean expressions with Karnaugh maps. Click cells to build a function
+        (0 = false, 1 = true, X = don't-care), enter minterms/maxterms or a Boolean expression, then solve with
+        Quine–McCluskey minimization — with grouping, step-by-step explanations, and verification.</p>
+
+        <div class="card controls-card">
+          <div class="control-group">
+            <span class="control-label" id="kmVarLabel">Variables</span>
+            <div class="seg" id="kmVars" role="group" aria-labelledby="kmVarLabel">
+              <button class="seg-btn" data-n="2">2 (A, B)</button>
+              <button class="seg-btn" data-n="3">3 (A, B, C)</button>
+              <button class="seg-btn active" data-n="4">4 (A, B, C, D)</button>
+            </div>
+          </div>
+          <div class="control-group">
+            <span class="control-label" id="kmModeLabel">Simplify as</span>
+            <div class="seg" id="kmMode" role="group" aria-labelledby="kmModeLabel">
+              <button class="seg-btn active" data-mode="SOP">SOP — group 1s</button>
+              <button class="seg-btn" data-mode="POS">POS — group 0s</button>
+            </div>
+          </div>
+          <div class="control-group actions">
+            <button id="kmSolve" class="btn">Solve</button>
+            <button id="kmReset" class="btn btn-secondary">Reset Map</button>
+            <button id="kmFillZeros" class="btn btn-secondary">Fill with Zeros</button>
+            <button id="kmFillOnes" class="btn btn-secondary">Fill with Ones</button>
+            <button id="kmRandom" class="btn btn-secondary">Randomize</button>
+            <button id="kmUndo" class="btn btn-secondary">Undo</button>
+          </div>
+        </div>
+
+        <div class="kmap-layout">
+          <div class="card">
+            <h3 class="card-title">K-Map — <span id="kmMapLabel">4 variables (A, B, C, D)</span></h3>
+            <div id="kmGrid" class="km-grid-wrap"></div>
+            <p class="hint">Click a cell to cycle <strong>0 → 1 → X</strong> (don't-care). Rows and columns use
+            Gray code, so adjacent cells differ by exactly one bit — including wraparound at the edges.</p>
+            <div class="km-legend" id="kmLegend"></div>
+          </div>
+
+          <div class="kmap-side">
+            <div class="card">
+              <h3 class="card-title">Enter a function (minterms / maxterms)</h3>
+              <label class="control-label" for="kmMinterms">Minterms — output 1 &nbsp;Σm(…)</label>
+              <input id="kmMinterms" class="text-input" placeholder="e.g. 1, 3, 5, 7" />
+              <label class="control-label" for="kmMaxterms">Maxterms — output 0 &nbsp;ΠM(…)</label>
+              <input id="kmMaxterms" class="text-input" placeholder="e.g. 0, 2" />
+              <label class="control-label" for="kmDontcares">Don't-care terms &nbsp;Σd(…)</label>
+              <input id="kmDontcares" class="text-input" placeholder="e.g. 2, 6" />
+              <button id="kmApplyTerms" class="btn">Apply to K-Map</button>
+              <p id="kmTermsMsg" class="message" aria-live="polite"></p>
+            </div>
+
+            <div class="card">
+              <h3 class="card-title">Enter a Boolean expression</h3>
+              <input id="kmExprInput" class="text-input" placeholder="e.g. A AND (B OR C)" />
+              <p class="hint">Operators: <strong>AND</strong> (·, *, or AB) · <strong>OR</strong> (+, OR) ·
+              <strong>NOT</strong> (', !, NOT) · <strong>XOR</strong> · parentheses. Parsed safely — never evaluated with eval().</p>
+              <button id="kmParseExpr" class="btn">Parse &amp; Build</button>
+              <p id="kmExprMsg" class="message" aria-live="polite"></p>
+            </div>
+
+            <div class="card">
+              <h3 class="card-title">Solution</h3>
+              <div id="kmSolution"></div>
+              <div class="quiz-actions">
+                <button id="kmTruthTable" class="btn btn-secondary">Generate Truth Table</button>
+                <button id="kmStepsBtn" class="btn btn-secondary">Step-by-Step Solution</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card hidden" id="kmStepsCard">
+          <h3 class="card-title">Step-by-step solution</h3>
+          <div id="kmStepBody" aria-live="polite"></div>
+          <div class="pz-actions">
+            <button id="kmStepPrev" class="btn btn-secondary">Previous Step</button>
+            <span id="kmStepCounter" class="step-counter"></span>
+            <button id="kmStepNext" class="btn btn-secondary">Next Step</button>
+          </div>
+        </div>
+
+        <div class="card hidden" id="kmTruthCard">
+          <h3 class="card-title">Truth table from K-Map</h3>
+          <div class="table-wrap" id="kmTruthWrap"></div>
+          <div class="quiz-actions">
+            <button id="kmVerify" class="btn">Verify Simplification</button>
+            <button id="kmCircuit" class="btn btn-secondary">Build Circuit from Expression</button>
+          </div>
+          <div id="kmVerifyResult"></div>
+          <div id="kmCircuitWrap"></div>
+        </div>
+
+        <div class="card" id="kmPracticeCard">
+          <h3 class="card-title">K-Map Practice</h3>
+          <div id="kmPractice"></div>
+        </div>
+      </section>
+
+      <!-- ========== TAB 5: SCORE & PROGRESS ========== -->
+      <section id="section-progress" class="section" aria-labelledby="prog-heading">
+        <h2 class="section-title" id="prog-heading">Score &amp; Progress</h2>
+        <p class="section-intro">Your progress is tracked for this browser session &mdash; no login required.</p>
+
+        <div class="stats-grid" id="progressStats"></div>
+
+        <div class="card">
+          <h3 class="card-title">Gates you have practiced</h3>
+          <div id="progGates" class="chips"></div>
+          <button id="progressReset" class="btn btn-ghost">Reset progress</button>
+        </div>
+      </section>
+
+      <footer class="app-footer">
+        <p>LogicLab &mdash; a free, offline educational tool for Digital Logic Design, Boolean Algebra, and Computer Engineering.</p>
+      </footer>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
